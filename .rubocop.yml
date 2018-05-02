@@ -9,3 +9,9 @@ Style/Documentation:
 
 LineLength:
   Enabled: false
+
+Lambda:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
