@@ -11,6 +11,12 @@ Author.create(
       last_name: 'Damn',
       birth_year: 1998,
       is_alive: true
+    },
+    {
+      first_name: nil,
+      last_name: nil,
+      birth_year: 1998,
+      is_alive: true
     }
   ]
 )
