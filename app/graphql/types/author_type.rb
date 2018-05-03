@@ -20,4 +20,6 @@ Types::AuthorType = GraphQL::ObjectType.define do
   field :coordinates, Types::PairType do
     description 'Coordinates of the author'
   end
+
+  field :publication_years, types[types.Int]
 end

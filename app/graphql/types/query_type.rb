@@ -19,4 +19,11 @@ Types::QueryType = GraphQL::ObjectType.define do
       Author.find(args[:id])
     }
   end
+
+  field :all_authors, types[Types::AuthorType] do
+    description 'All authors'
+    resolve ->(_obj, _args, _ctx) {
+      Author.all
+    }
+  end
 end
