@@ -16,4 +16,8 @@ Types::AuthorType = GraphQL::ObjectType.define do
       "#{obj.first_name} #{obj.last_name}, born #{obj.birth_year}"
     end
   end
+
+  field :coordinates, Types::PairType do
+    description 'Coordinates of the author'
+  end
 end
