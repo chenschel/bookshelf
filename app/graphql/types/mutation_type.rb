@@ -10,4 +10,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   end
 
   field :createAuthor, function: Mutations::CreateAuthor.new
+  field :updateAuthor, function: Mutations::UpdateAuthor.new
 end
