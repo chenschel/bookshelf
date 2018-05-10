@@ -32,4 +32,10 @@ Types::AuthorType = GraphQL::ObjectType.define do
   end
 
   field :publication_years, types[types.Int]
+
+  field :errors, types[types.String], 'Reasons why author could not be saved' do
+    resolve ->(obj, _args, _ctx) do
+      obj.errors.to_a
+    end
+  end
 end
