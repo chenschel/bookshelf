@@ -1,3 +1,13 @@
+Types::AuthorInputType = GraphQL::InputObjectType.define do
+  name 'AuthorInputType'
+  description 'Properties for create and update an Author'
+
+  argument :first_name, types.String
+  argument :last_name, types.String
+  argument :birth_year, types.Int
+  argument :is_alive, types.Boolean
+end
+
 Types::AuthorType = GraphQL::ObjectType.define do
   name 'AuthorType'
 
