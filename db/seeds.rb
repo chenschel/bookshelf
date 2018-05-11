@@ -20,3 +20,13 @@ Author.create(
     }
   ]
 )
+
+User.create(
+  [
+    {
+      email: 'john@expample.com',
+      password: '1234',
+      password_confirmation: '1234'
+    }
+  ]
+)

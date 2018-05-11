@@ -26,4 +26,16 @@ Types::QueryType = GraphQL::ObjectType.define do
       Author.all
     }
   end
+
+  field :login, types.String do
+    description 'authenticate an user and returns a session key'
+
+    argument :email, types.String, 'Users email address'
+    argument :password, types.String, 'Users password'
+
+    resolve ->(_obj, args, _ctx) {
+      user = User.where(email: args[:email]).first
+      user.sessions.create.key if user.try(:authenticate, args[:password])
+    }
+  end
 end
