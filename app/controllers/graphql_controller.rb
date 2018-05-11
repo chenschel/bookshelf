@@ -1,4 +1,12 @@
 class GraphqlController < ApplicationController
+  before_action do
+    session
+    unless @session
+      head(:unauthorized)
+      false
+    end
+  end
+
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -6,6 +14,7 @@ class GraphqlController < ApplicationController
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
+      current_user: @session.user
     }
     result = BookshelfSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -29,5 +38,9 @@ class GraphqlController < ApplicationController
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
+  end
+
+  def session
+    @session = Session.where(key: request.headers['Authorization']).first
   end
 end

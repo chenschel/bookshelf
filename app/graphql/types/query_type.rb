@@ -38,4 +38,8 @@ Types::QueryType = GraphQL::ObjectType.define do
       user.sessions.create.key if user.try(:authenticate, args[:password])
     }
   end
+
+  field :current_user, Types::UserType do
+    resolve ->(_obj, _args, ctx) { ctx[:current_user] }
+  end
 end
