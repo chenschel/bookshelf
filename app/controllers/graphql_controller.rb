@@ -1,26 +1,23 @@
 class GraphqlController < ApplicationController
-  before_action do
-    session
-    unless @session
-      head(:unauthorized)
-      false
-    end
-  end
+  before_action :check_authentication
 
   def execute
     variables = ensure_hash(params[:variables])
-    query = params[:query]
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
-      current_user: @session.user
+      current_user: @session.try(:user)
     }
     result = BookshelfSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   end
 
   private
+
+  def query
+    params[:query]
+  end
 
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)
@@ -42,5 +39,17 @@ class GraphqlController < ApplicationController
 
   def session
     @session = Session.where(key: request.headers['Authorization']).first
+  end
+
+  def check_authentication
+    parsed_query = GraphQL::Query.new(BookshelfSchema, query)
+    operation = parsed_query.selected_operation.selections.first.name
+    return true if BookshelfSchema.query.fields[operation].metadata[:is_public]
+
+    session
+    return true if @session
+
+    head(:unauthorized)
+    false
   end
 end

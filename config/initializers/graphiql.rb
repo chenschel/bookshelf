@@ -1,1 +1,1 @@
-GraphiQL::Rails.config.headers['Authorization'] = ->(_context) { Session.first.key }
+# GraphiQL::Rails.config.headers['Authorization'] = ->(_context) { Session.first.key }

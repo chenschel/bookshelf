@@ -13,8 +13,10 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :author, Types::AuthorType do
-    argument :id, types.ID, 'Author DB ID'
     description 'One Author'
+
+    argument :id, types.ID, 'Author DB ID'
+
     resolve ->(_obj, args, _ctx) {
       Author.find(args[:id])
     }
@@ -22,6 +24,8 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :all_authors, types[Types::AuthorType] do
     description 'All authors'
+    is_public true
+
     resolve ->(_obj, _args, _ctx) {
       Author.all
     }
@@ -29,6 +33,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :login, types.String do
     description 'authenticate an user and returns a session key'
+    is_public true
 
     argument :email, types.String, 'Users email address'
     argument :password, types.String, 'Users password'
