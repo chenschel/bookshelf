@@ -38,13 +38,46 @@
 			"response": []
 		},
 		{
+			"name": "testField",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "bd24af027b807e32865ea0f7f799763fe74f13c7a080ae1b7debf132ff325c0334b660455759eb041d287754eefbc4cc32ac"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"{testField(name: \\\"ch\\\")}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "author",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "cb45e870e212eb4f83ffd65f67299ef08f9c60eb82a5434bd403ca222fd7270446b1d3a835b054bc3454535e4d568c7a29c8"
+						"value": "90cd58dd46d80aadbf5bdc29aa743af8d12801ad44a4943ab1803689742fef26610ba72a4f6bc9317a0d040ea5f8900ad4ec",
+						"description": "must be superadmin"
 					},
 					{
 						"key": "Content-Type",
@@ -82,6 +115,38 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"query\": \"{login(email: \\\"john@expample.com\\\", password: \\\"1234\\\")}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "859e840a77d92601a10084518e691508510241d4b1c5c16a9e299a0c61a2931b681022d53450350c87546bbadbe47fa86caa"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"mutation{logout}\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:3000/graphql",
