@@ -52,14 +52,22 @@ class GraphqlController < ApplicationController
     return true if field_is_public?(operation)
 
     session
-    return true if @session
+    return true if @session && access_allowed?(operation)
 
     head(:unauthorized)
     false
   end
 
   def field_is_public?(operation)
-    field = BookshelfSchema.query.fields[operation] || BookshelfSchema.mutation.fields[operation]
-    field.metadata[:is_public]
+    field(operation).metadata[:is_public]
+  end
+
+  def access_allowed?(operation)
+    return true if field(operation).metadata[:must_be].blank?
+    field(operation).metadata[:must_be].to_a.include?(@session.user.role)
+  end
+
+  def field(operation)
+    BookshelfSchema.query.fields[operation] || BookshelfSchema.mutation.fields[operation]
   end
 end

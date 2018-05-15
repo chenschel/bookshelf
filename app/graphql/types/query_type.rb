@@ -17,6 +17,8 @@ Types::QueryType = GraphQL::ObjectType.define do
 
     argument :id, types.ID, 'Author DB ID'
 
+    must_be [:superadmin]
+
     resolve ->(_obj, args, _ctx) {
       Author.find(args[:id])
     }
